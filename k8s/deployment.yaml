@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app2
+spec:
+  replicas: 1  # Number of instances of the app
+  selector:
+    matchLabels:
+      app: app2
+  template:
+    metadata:
+      labels:
+        app: app2
+    spec:
+      containers:
+      - name: app2
+        image: gajapathi22/app-image:latest  # The image name should match the locally built image
+        ports:
+        - containerPort: 3000  # Port on which the app is running inside the container
+        env:
+        - name: MYSQL_HOST
+          value: "batch-db.cdzvhvegep9f.ap-south-1.rds.amazonaws.com"  # The MySQL service name in Kubernetes
+        - name: MYSQL_PORT
+          value: "3306"
+        - name: MYSQL_USER
+          value: "admin"
+        - name: MYSQL_PASSWORD
+          value: "batch1628"  # Update with your MySQL password
+        - name: MYSQL_DATABASE
+          value: "messages_db"  # Update with your database name
+
+
